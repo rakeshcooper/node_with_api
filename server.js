@@ -1,7 +1,7 @@
 const path = require("path");
 const http = require("http");
 const PORT = process.env.PORT || 5000;
-const { getProducts } = require("./controllers/productControllers");
+const { getProducts, getProduct } = require("./controllers/productControllers");
 // const products = require("./data/products");
 
 const server = http.createServer(async (req, res) => {
@@ -13,6 +13,8 @@ const server = http.createServer(async (req, res) => {
     req.url.match(/\/api\/products\/([0-9]+)/) &&
     req.method === "GET"
   ) {
+    const id = req.url.split("/")[3];
+    await getProduct(req, res, id);
   } else {
     res.writeHead(404, { "content-type": "application/json" });
     res.write(JSON.stringify({ message: "route not found" }));
