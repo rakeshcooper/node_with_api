@@ -13,6 +13,8 @@ async function getProducts(req, res) {
   }
 }
 
+// desc GET single product
+// to get  GET /api/products:id
 async function getProduct(req, res, id) {
   try {
     const product = await Product.findById(id);
