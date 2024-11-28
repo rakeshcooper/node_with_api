@@ -4,9 +4,9 @@ const PORT = process.env.PORT || 5000;
 const { getProducts } = require("./controllers/productControllers");
 // const products = require("./data/products");
 
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
   if (req.url === "/api/products" && req.method === "GET") {
-    getProducts(req, res);
+    await getProducts(req, res);
     // res.writeHead(200, { "content-type": "application/json" });
     // res.end(JSON.stringify(products));
   } else {
