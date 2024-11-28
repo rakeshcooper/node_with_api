@@ -9,6 +9,10 @@ const server = http.createServer(async (req, res) => {
     await getProducts(req, res);
     // res.writeHead(200, { "content-type": "application/json" });
     // res.end(JSON.stringify(products));
+  } else if (
+    req.url.match(/\/api\/products\/([0-9]+)/) &&
+    req.method === "GET"
+  ) {
   } else {
     res.writeHead(404, { "content-type": "application/json" });
     res.write(JSON.stringify({ message: "route not found" }));
