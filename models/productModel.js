@@ -21,7 +21,8 @@ function create(product) {
   return new Promise((resolve, reject) => {
     const newproduct = {id:ruuid,...product}
     products.push(newproduct)
-    writeDataFile('.data/products.json',products)
+    writeDataFile('data/products.json',products)
+    console.log(__dirname);
     resolve(newproduct);
     // console.log(products);
   });
