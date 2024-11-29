@@ -1,4 +1,6 @@
 const products = require("../data/products");
+const ruuid = crypto.randomUUID()
+const {writeDataFile} = require('../uitlis')
 
 function findAll() {
   return new Promise((resolve, reject) => {
@@ -15,4 +17,16 @@ function findById(id) {
   });
 }
 
-module.exports = { findAll, findById };
+function create(product) {
+  return new Promise((resolve, reject) => {
+    const newproduct = {id:ruuid,...product}
+    products.push(newproduct)
+    writeDataFile('.data/products.json',products)
+    resolve(newproduct);
+    // console.log(products);
+  });
+}
+
+
+
+module.exports = { findAll, findById, create };

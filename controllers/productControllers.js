@@ -30,4 +30,20 @@ async function getProduct(req, res, id) {
   }
 }
 
-module.exports = { getProducts, getProduct };
+async function createProduct(req, res) {
+  try {
+    const product = {
+      title:'Test File',
+      name:'Test name',
+      desc:'Test desc'
+    }
+    const newProduct = await Product.create(product);
+
+    res.writeHead(201, { "content-type": "application/json" });
+    return res.end(JSON.stringify(newProduct));
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+module.exports = { getProducts, getProduct, createProduct };
