@@ -1,13 +1,10 @@
-const { ifError } = require('assert')
 const fs = require('fs')
-
-
+const fspromise = require('fs').promises
 
 function writeDataFile(filename, content){
-fs.writeFile(filename,JSON.stringify(content),'utf-8',(error) => {
+ fspromise.writeFile(filename,JSON.stringify(content),'utf-8',(error) => {
     if(error){
-        console.log(error);
-        
+        console.log(error);    
     }
 })
 }

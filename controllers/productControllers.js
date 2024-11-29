@@ -31,19 +31,46 @@ async function getProduct(req, res, id) {
 }
 
 async function createProduct(req, res) {
+
   try {
+     let body =''
+     req.on('data',(chunk) =>{
+       body += chunk.toString()
+    })
+
+    req.on('end',async() => {
+    const { name, description, price } = JSON.parse(body)
     const product = {
-      title:'Test File',
-      name:'Test name',
-      desc:'Test desc'
+      name,
+      description,
+      price
     }
     const newProduct = await Product.create(product);
 
     res.writeHead(201, { "content-type": "application/json" });
     return res.end(JSON.stringify(newProduct));
+    })
+    
   } catch (error) {
     console.error(error);
   }
+
+
+
+ /*  try {
+    const product = {
+      name : 'Cooper',
+      description : 'Test',
+      price: 1600
+    }
+    const newProduct = await Product.create(product);
+
+    res.writeHead(201, { "content-type": "application/json" });
+    return res.end(JSON.stringify(newProduct));
+    
+  } catch (error) {
+    console.error(error);
+  } */
 }
 
 module.exports = { getProducts, getProduct, createProduct };
