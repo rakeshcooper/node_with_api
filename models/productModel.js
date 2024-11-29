@@ -1,4 +1,5 @@
 const products = require("../data/products");
+const path = require('path')
 const ruuid = crypto.randomUUID()
 const { writeDataFile } = require('../uitlis')
 
@@ -21,7 +22,8 @@ function create(product) {
   return new Promise((resolve, reject) => {
     const newproduct = {id:ruuid,...product}
     products.push(newproduct)
-    writeDataFile('data/products.json', products)
+    // writeDataFile('data/products.json', products)
+    writeDataFile(path.resolve('data','products.json'), products)
     resolve(newproduct);
     console.log(products);
   });
