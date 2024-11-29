@@ -1,5 +1,7 @@
 const Product = require("../models/productModel.js");
 
+const  { getPostData } = require('../uitlis')
+
 // desc GET all product
 // to get  GET /api/products
 async function getProducts(req, res) {
@@ -33,44 +35,49 @@ async function getProduct(req, res, id) {
 async function createProduct(req, res) {
 
   try {
-     let body =''
-     req.on('data',(chunk) =>{
-       body += chunk.toString()
-    })
+   const body = await getPostData(req)
 
-    req.on('end',async() => {
-    const { name, description, price } = JSON.parse(body)
-    const product = {
-      name,
-      description,
-      price
-    }
-    const newProduct = await Product.create(product);
+   const {
+    names,
+    description,
+    price
+  } = JSON.parse(body)
 
-    res.writeHead(201, { "content-type": "application/json" });
-    return res.end(JSON.stringify(newProduct));
-    })
-    
-  } catch (error) {
-    console.error(error);
+  const product = {
+    names,
+    description,
+    price
   }
 
+ const newProduct = await Product.create(product);
 
 
- /*  try {
-    const product = {
-      name : 'Cooper',
-      description : 'Test',
-      price: 1600
-    }
-    const newProduct = await Product.create(product);
-
-    res.writeHead(201, { "content-type": "application/json" });
+   res.writeHead(201, { "content-type": "application/json" });
     return res.end(JSON.stringify(newProduct));
     
   } catch (error) {
     console.error(error);
-  } */
+}
+
+
+
+  // try {
+  //   const product = {
+  //     name : 'Cooper',
+  //     description : 'Test',
+  //     price: 1600
+  //   }
+  //   const newProduct = await Product.create(product);
+
+
+  //   res.writeHead(201, { "content-type": "application/json" });
+  //   return res.end(JSON.stringify(newProduct));
+
+    
+    
+  // } catch (error) {
+  //   console.error(error);
+  // } 
 }
 
 module.exports = { getProducts, getProduct, createProduct };

@@ -20,11 +20,11 @@ function findById(id) {
 function create(product) {
   return new Promise((resolve, reject) => {
     const newproduct = {id:ruuid,...product}
+    // products.push(newproduct)
     products.push(newproduct)
-    writeDataFile('data/products.json',products)
-    console.log(__dirname);
+    writeDataFile('data/products.json', products)
     resolve(newproduct);
-    // console.log(products);
+    console.log(products);
   });
 }
 
