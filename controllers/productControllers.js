@@ -90,20 +90,20 @@ async function updateProduct(req, res, id) {
           res.writeHead(404, { "content-type": "application/json" });
           res.end(JSON.stringify({ message: "product not found" }));
         } else {
-          const body = await getPostData(req)
-          const { names, description, price } = JSON.parse(body)
+            const body = await getPostData(req)
+            const { names, description, price } = JSON.parse(body)
 
-          const product = {
-            names: names || product.names,
-            description: description || description.names,
-            price: price || price.names
-          }
+            const  productData = {
+              names: names || product.names,
+              // description: description || description.description,
+               price: price || price.price
+            }
 
-    const updProduct = await Product.update(id, product);
+            
 
-
-      res.writeHead(201, { "content-type": "application/json" });
-        return res.end(JSON.stringify(updProduct));   
+            const updProduct = await Product.update(id, productData);
+            res.writeHead(200, { "content-type": "application/json" });
+            return res.end(JSON.stringify(updProduct));   
         }
 
       

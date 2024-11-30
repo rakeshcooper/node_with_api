@@ -33,6 +33,8 @@ function update(id, product) {
     products[index] = {id, ...product}
     writeDataFile(path.resolve('data','products.json'), products)
     resolve(products[index]);
+    console.log(products[index]);
+    
   });
 }
 
