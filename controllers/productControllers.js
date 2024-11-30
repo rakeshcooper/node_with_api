@@ -95,8 +95,8 @@ async function updateProduct(req, res, id) {
 
             const  productData = {
               names: names || product.names,
-              // description: description || description.description,
-               price: price || price.price
+              description: description || product.description,
+              price: price || product.price
             }
 
             
