@@ -18,7 +18,16 @@ function findById(id) {
   });
 }
 
-function create(id, product) {
+function create(product) {
+  return new Promise((resolve, reject) => {
+    const newproduct = {id:ruuid,...product}
+    products.push(newproduct)
+    writeDataFile(path.resolve('data','products.json'), products)
+    resolve(newproduct);
+  });
+}
+
+function update(id, product) {
   return new Promise((resolve, reject) => {
     const index = products.findIndex((p) => p.id === id)
     products[index] = {id, ...product}
@@ -29,4 +38,4 @@ function create(id, product) {
 
 
 
-module.exports = { findAll, findById, create, create };
+module.exports = { findAll, findById, create, update };
