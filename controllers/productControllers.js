@@ -79,4 +79,38 @@ async function createProduct(req, res) {
   // } 
 }
 
-module.exports = { getProducts, getProduct, createProduct };
+// desc PUT to update product
+// to PUT /api/products:id
+
+async function updateProduct(req, res, id) {
+
+      try {
+        const product = await Product.findById(id);
+        if (!product) {
+          res.writeHead(404, { "content-type": "application/json" });
+          res.end(JSON.stringify({ message: "product not found" }));
+        } else {
+          const body = await getPostData(req)
+          const { names, description, price } = JSON.parse(body)
+
+          const product = {
+            names: names || product.names,
+            description: description || description.names,
+            price: price || price.names
+          }
+
+    const updProduct = await Product.update(id, product);
+
+
+      res.writeHead(201, { "content-type": "application/json" });
+        return res.end(JSON.stringify(updProduct));   
+        }
+
+      
+        
+      } catch (error) {
+        console.error(error);
+    }
+  }    
+
+module.exports = { getProducts, getProduct, createProduct, updateProduct };
