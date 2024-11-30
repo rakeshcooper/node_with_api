@@ -18,17 +18,15 @@ function findById(id) {
   });
 }
 
-function create(product) {
+function create(id, product) {
   return new Promise((resolve, reject) => {
-    const newproduct = {id:ruuid,...product}
-    products.push(newproduct)
-    // writeDataFile('data/products.json', products)
+    const index = products.findIndex((p) => p.id === id)
+    products[index] = {id, ...product}
     writeDataFile(path.resolve('data','products.json'), products)
-    resolve(newproduct);
-    console.log(products);
+    resolve(products[index]);
   });
 }
 
 
 
-module.exports = { findAll, findById, create };
+module.exports = { findAll, findById, create, create };
