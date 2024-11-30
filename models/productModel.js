@@ -1,4 +1,4 @@
-const products = require("../data/products");
+let products = require("../data/products");
 const path = require('path')
 const ruuid = crypto.randomUUID()
 const { writeDataFile } = require('../uitlis')
@@ -39,5 +39,16 @@ function update(id, product) {
 }
 
 
+function remove(id) {
+  return new Promise((resolve, reject) => {
+    products = products.filter((p) => p.id !== id)
+    writeDataFile(path.resolve('data','products.json'), products)
+    resolve();
+    console.log(products);
+    
+  });
+}
 
-module.exports = { findAll, findById, create, update };
+
+
+module.exports = { findAll, findById, create, update, remove };

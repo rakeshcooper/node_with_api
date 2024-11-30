@@ -111,6 +111,25 @@ async function updateProduct(req, res, id) {
       } catch (error) {
         console.error(error);
     }
-  }    
+  }
+  
+  
+  // desc DELETE product
+// to delete  DELETE /api/products:id
+async function deleteProduct(req, res, id) {
+  try {
+    const product = await Product.findById(id);
+    if (!product) {
+      res.writeHead(404, { "content-type": "application/json" });
+      res.end(JSON.stringify({ message: "product not found" }));
+    } else {
+      await Product.remove(id); 
+      res.writeHead(200, { "content-type": "application/json" });
+      res.end(JSON.stringify({ message: `product ${id} removed` }));
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-module.exports = { getProducts, getProduct, createProduct, updateProduct };
+module.exports = { getProducts, getProduct, createProduct, updateProduct, deleteProduct };

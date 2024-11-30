@@ -1,7 +1,7 @@
 const path = require("path");
 const http = require("http");
 const PORT = process.env.PORT || 5000;
-const { getProducts, getProduct, createProduct, updateProduct } = require("./controllers/productControllers");
+const { getProducts, getProduct, createProduct, updateProduct, deleteProduct } = require("./controllers/productControllers");
 // const products = require("./data/products");
 
 const server = http.createServer(async (req, res) => {
@@ -16,6 +16,9 @@ const server = http.createServer(async (req, res) => {
     }else if (req.url.match(/\/api\/products\/([0-9]+)/) && req.method === "PUT") {
       const id = req.url.split("/")[3];
       await updateProduct(req, res, id);
+    }else if (req.url.match(/\/api\/products\/([0-9]+)/) && req.method === "DELETE") {
+      const id = req.url.split("/")[3];
+      await deleteProduct(req, res, id);
     } else {
       res.writeHead(404, { "content-type": "application/json" });
       res.write(JSON.stringify({ message: "route not found" }));
